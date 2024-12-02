@@ -1,0 +1,19 @@
+.item {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: flex;
+  padding: 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 6px;
+  margin-top: 15px;
+  justify-content: space-between;
+  align-items: center;
+}
+.item strong {
+  font-size: 18px;
+}
+.content {
+  cursor: pointer;
+}
+.content:hover {
+  text-decoration: underline;
+}

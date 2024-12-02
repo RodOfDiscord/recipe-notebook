@@ -1,0 +1,33 @@
+button.primary {
+  background: #ff4742;
+  border: 1px solid #ff4742;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  padding: 12px 14px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.1s ease-in-out;
+  transition: color 0.1s ease-in-out;
+}
+
+button.primary:hover,
+button.primary:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #ff4742;
+}
+
+button.primary div {
+  display: flex;
+  align-items: center;
+}
+
+button.primary div span {
+  height: 100%;
+  display: inline-block;
+}
