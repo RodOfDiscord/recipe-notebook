@@ -21,13 +21,11 @@ function EditRecipeForm({ id }) {
     if (!id) navigate("/");
     const recipeToEdit = recipes.find((recipe) => recipe.id === parseInt(id));
     if (recipeToEdit) {
-      if (recipeToEdit) {
-        setTitle(recipeToEdit.title);
-        setDescription(recipeToEdit.description);
-        setSteps(recipeToEdit.steps.map((step) => step.content));
-      } else {
-        navigate("/");
-      }
+      setTitle(recipeToEdit.title);
+      setDescription(recipeToEdit.description);
+      setSteps(recipeToEdit.steps.map((step) => step.content));
+    } else {
+      navigate("/");
     }
   }, [id, recipes, navigate]);
 

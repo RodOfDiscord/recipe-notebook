@@ -2,14 +2,19 @@ import Typography from "../../ui/Typography/Typography";
 import style from "./style.module.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { RecipesAtom } from "../../atoms/recipesAtom";
-import { useAtom } from "jotai";
-
+import { useEffect } from "react";
+import { useAtomValue } from "jotai";
 function RecipePage() {
-  const [recipes] = useAtom(RecipesAtom);
+  const recipes = useAtomValue(RecipesAtom);
   const navigate = useNavigate();
   const { id } = useParams();
   const recipe = recipes.find((recipe) => recipe.id === parseInt(id));
-  if (!recipe) navigate("/");
+  useEffect(() => {
+    if (!recipe) navigate("/");
+  }, [recipe, navigate]);
+  if (!recipe) {
+    return null;
+  }
   return (
     <>
       <Typography variant="h1">{recipe.title}</Typography>

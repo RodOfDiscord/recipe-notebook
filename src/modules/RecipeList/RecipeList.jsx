@@ -6,7 +6,12 @@ import style from "./style.module.css";
 
 function RecipeList() {
   const navigate = useNavigate();
-  const [recipes] = useAtom(RecipesAtom);
+  const [recipes, setRecipes] = useAtom(RecipesAtom);
+  const deleteRecipe = (id) => {
+    setRecipes((prevRecipes) =>
+      prevRecipes.filter((recipe) => recipe.id !== id)
+    );
+  };
   const items = recipes.map((recipe) => (
     <li key={recipe.id}>
       <RecipeItem
@@ -14,6 +19,9 @@ function RecipeList() {
         description={recipe.description}
         id={recipe.id}
         onEdit={() => navigate(`/edit/${recipe.id}`)}
+        onDelete={() => {
+          deleteRecipe(recipe.id);
+        }}
       ></RecipeItem>
     </li>
   ));

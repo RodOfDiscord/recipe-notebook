@@ -1,7 +1,7 @@
-import { atom } from "jotai";
-export const RecipesAtom = atom([
+import { atomWithStorage } from "jotai/utils";
+export const RecipesAtom = atomWithStorage("recipes", [
   {
-    id: 1,
+    id: 0,
     title: "Pizza",
     description: "bla bla bla",
     steps: [

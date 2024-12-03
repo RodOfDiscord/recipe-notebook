@@ -8,9 +8,7 @@ function RecipeItem({ id, title, description, onDelete, onEdit }) {
     <div className={style.item}>
       <Link to={`/${id}`}>
         <div className={style.content}>
-          <strong>
-            {id}. {title}
-          </strong>
+          <strong>{title}</strong>
           <div>{description}</div>
         </div>
       </Link>
