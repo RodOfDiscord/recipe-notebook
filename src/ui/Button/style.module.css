@@ -25,9 +25,16 @@ button.primary:active {
 button.primary div {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 button.primary div span {
+  font-size: 18px;
   height: 100%;
   display: inline-block;
+}
+button.primary:disabled {
+  pointer-events: none;
+  background: lightcoral;
+  border: none;
 }

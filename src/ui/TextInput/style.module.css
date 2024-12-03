@@ -1,6 +1,5 @@
 .text-input {
   appearance: none;
-  background-color: none;
   border: 1px solid #ff4742;
   line-height: 0;
   font-size: 17px;
@@ -19,4 +18,8 @@
   outline: none;
   background-color: #ff4742;
   color: white;
+}
+
+.text-label {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
