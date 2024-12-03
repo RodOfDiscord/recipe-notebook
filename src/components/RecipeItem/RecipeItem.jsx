@@ -1,16 +1,19 @@
 import PropTypes from "prop-types";
 import Button from "../../ui/Button/Button";
 import style from "./style.module.css";
+import { Link } from "react-router-dom";
 
-function RecipeItem({ number, title, description, onDelete, onEdit, onView }) {
+function RecipeItem({ id, title, description, onDelete, onEdit }) {
   return (
     <div className={style.item}>
-      <div className={style.content} onClick={onView}>
-        <strong>
-          {number}. {title}
-        </strong>
-        <div>{description}</div>
-      </div>
+      <Link to={`/${id}`}>
+        <div className={style.content}>
+          <strong>
+            {id}. {title}
+          </strong>
+          <div>{description}</div>
+        </div>
+      </Link>
       <div style={{ display: "flex", gap: "1em" }}>
         <Button onClick={onDelete}>Delete</Button>
         <Button onClick={onEdit}>Edit</Button>
@@ -20,7 +23,7 @@ function RecipeItem({ number, title, description, onDelete, onEdit, onView }) {
 }
 
 RecipeItem.propTypes = {
-  number: PropTypes.number,
+  id: PropTypes.number,
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   onDelete: PropTypes.func,
