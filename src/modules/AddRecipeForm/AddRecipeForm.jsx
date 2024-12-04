@@ -73,6 +73,7 @@ function AddRecipeForm() {
         >
           Save
         </Button>
+        <Button onClick={() => navigate("/")}>Cancel</Button>
       </div>
     </>
   );

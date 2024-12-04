@@ -1,0 +1,21 @@
+main.base {
+  margin: 0 25rem 0;
+}
+
+@media (max-width: 1024px) {
+  main.base {
+    margin: 0 15rem 0;
+  }
+}
+
+@media (max-width: 768px) {
+  main.base {
+    margin: 0 5rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  main.base {
+    margin: 0 2rem 0;
+  }
+}
