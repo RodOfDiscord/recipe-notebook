@@ -1,5 +1,3 @@
-import { useAtom } from "jotai";
-import { RecipesAtom } from "../../atoms/recipesAtom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TextInput from "../../ui/TextInput/TextInput.jsx";
@@ -7,22 +5,23 @@ import TextArea from "../../ui/TextArea/TextArea";
 import Button from "../../ui/Button/Button.jsx";
 import Typography from "../../ui/Typography/Typography.jsx";
 import style from "./style.module.css";
+import useRecipes from "../../hooks/useRecipes.js";
+import useRecipeSteps from "../../hooks/useRecipeSteps.js";
 
 function AddRecipeForm() {
   const [step, setStep] = useState("");
-  const [steps, setSteps] = useState([]);
+  const { steps, addStep, removeStep } = useRecipeSteps([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [recipes, setRecipes] = useAtom(RecipesAtom);
   const navigate = useNavigate();
-  const addStep = () => {
+  const { recipes, addRecipe } = useRecipes();
+
+  const handleAddStep = () => {
     if (step === "") return;
-    setSteps([...steps, step]);
+    addStep(step);
     setStep("");
   };
-  const removeStep = (index) => {
-    setSteps(steps.filter((_, i) => i !== index));
-  };
+
   const save = () => {
     if (!title || !description || steps.length === 0) return;
 
@@ -33,7 +32,7 @@ function AddRecipeForm() {
       steps: steps.map((step) => ({ content: step })),
     };
 
-    setRecipes((prevRecipes) => [...prevRecipes, newRecipe]);
+    addRecipe(newRecipe);
     navigate("/");
   };
   const stepInputs = steps.map((step, index) => {
@@ -64,7 +63,7 @@ function AddRecipeForm() {
               value={step}
               onChange={(e) => setStep(e.target.value)}
             ></TextArea>
-            <Button onClick={addStep}>+</Button>
+            <Button onClick={handleAddStep}>+</Button>
           </div>
           <div className={style["inputs-container"]}>{stepInputs}</div>
         </div>

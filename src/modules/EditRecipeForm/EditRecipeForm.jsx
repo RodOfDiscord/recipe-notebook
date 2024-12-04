@@ -1,7 +1,7 @@
-import { useAtom } from "jotai";
-import { RecipesAtom } from "../../atoms/recipesAtom";
+import useRecipes from "../../hooks/useRecipes.js";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useRecipeSteps from "../../hooks/useRecipeSteps.js";
 import PropTypes from "prop-types";
 import TextInput from "../../ui/TextInput/TextInput.jsx";
 import TextArea from "../../ui/TextArea/TextArea";
@@ -11,10 +11,10 @@ import style from "./style.module.css";
 
 function EditRecipeForm({ id }) {
   const [step, setStep] = useState("");
-  const [steps, setSteps] = useState([]);
+  const { steps, addStep, removeStep, initializeSteps } = useRecipeSteps([]);
+  const { recipes, updateRecipe } = useRecipes();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [recipes, setRecipes] = useAtom(RecipesAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,20 +23,16 @@ function EditRecipeForm({ id }) {
     if (recipeToEdit) {
       setTitle(recipeToEdit.title);
       setDescription(recipeToEdit.description);
-      setSteps(recipeToEdit.steps.map((step) => step.content));
+      initializeSteps(recipeToEdit.steps.map((step) => step.content));
     } else {
       navigate("/");
     }
-  }, [id, recipes, navigate]);
+  }, [id, recipes, navigate, initializeSteps]);
 
-  const addStep = () => {
+  const handleAddStep = () => {
     if (step === "") return;
-    setSteps([...steps, step]);
+    addStep(step);
     setStep("");
-  };
-
-  const removeStep = (index) => {
-    setSteps(steps.filter((_, i) => i !== index));
   };
 
   const save = () => {
@@ -49,11 +45,7 @@ function EditRecipeForm({ id }) {
       steps: steps.map((step) => ({ content: step })),
     };
 
-    setRecipes((prevRecipes) =>
-      prevRecipes.map((recipe) =>
-        recipe.id === parseInt(id) ? updatedRecipe : recipe
-      )
-    );
+    updateRecipe(id, updatedRecipe);
 
     navigate("/");
   };
@@ -87,7 +79,7 @@ function EditRecipeForm({ id }) {
               value={step}
               onChange={(e) => setStep(e.target.value)}
             ></TextArea>
-            <Button onClick={addStep}>+</Button>
+            <Button onClick={handleAddStep}>+</Button>
           </div>
           <div className={style["inputs-container"]}>{stepInputs}</div>
         </div>

@@ -1,17 +1,12 @@
-import { useAtom } from "jotai";
-import { RecipesAtom } from "../../atoms/recipesAtom";
+import useRecipes from "../../hooks/useRecipes";
 import { useNavigate } from "react-router-dom";
 import RecipeItem from "../../components/RecipeItem/RecipeItem";
 import style from "./style.module.css";
 
 function RecipeList() {
   const navigate = useNavigate();
-  const [recipes, setRecipes] = useAtom(RecipesAtom);
-  const deleteRecipe = (id) => {
-    setRecipes((prevRecipes) =>
-      prevRecipes.filter((recipe) => recipe.id !== id)
-    );
-  };
+  const { recipes, deleteRecipe } = useRecipes();
+
   const items = recipes.map((recipe) => (
     <li key={recipe.id}>
       <RecipeItem
