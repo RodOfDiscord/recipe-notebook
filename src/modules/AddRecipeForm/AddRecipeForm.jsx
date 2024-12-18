@@ -7,20 +7,14 @@ import Typography from "../../ui/Typography/Typography.jsx";
 import style from "./style.module.css";
 import useRecipes from "../../hooks/useRecipes.js";
 import useRecipeSteps from "../../hooks/useRecipeSteps.js";
+import RecipeStepsContainer from "../../components/RecipeStepsContainer/RecipeStepsContainer.jsx";
 
 function AddRecipeForm() {
-  const [step, setStep] = useState("");
   const { steps, addStep, removeStep } = useRecipeSteps([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
   const { recipes, addRecipe } = useRecipes();
-
-  const handleAddStep = () => {
-    if (step === "") return;
-    addStep(step);
-    setStep("");
-  };
 
   const save = () => {
     if (!title || !description || steps.length === 0) return;
@@ -35,14 +29,7 @@ function AddRecipeForm() {
     addRecipe(newRecipe);
     navigate("/");
   };
-  const stepInputs = steps.map((step, index) => {
-    return (
-      <div className={style["step-item"]} key={index}>
-        <TextInput value={index + 1 + ". " + step} disabled></TextInput>{" "}
-        <Button onClick={() => removeStep(index)}>x</Button>
-      </div>
-    );
-  });
+
   return (
     <>
       <div className={style.container}>
@@ -57,16 +44,11 @@ function AddRecipeForm() {
           onChange={(e) => setDescription(e.target.value)}
         ></TextArea>
         <Typography>Steps</Typography>
-        <div className={style["steps-container"]}>
-          <div className={style["add-block"]}>
-            <TextArea
-              value={step}
-              onChange={(e) => setStep(e.target.value)}
-            ></TextArea>
-            <Button onClick={handleAddStep}>+</Button>
-          </div>
-          <div className={style["inputs-container"]}>{stepInputs}</div>
-        </div>
+        <RecipeStepsContainer
+          steps={steps}
+          addStep={addStep}
+          removeStep={removeStep}
+        ></RecipeStepsContainer>
         <Button
           disabled={!title || !description || steps.length === 0}
           onClick={save}
